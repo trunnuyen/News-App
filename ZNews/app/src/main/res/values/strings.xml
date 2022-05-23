@@ -20,6 +20,7 @@
     <string name="ic_title_business">Business</string>
     <string name="ic_title_culture">Culture</string>
 
+
     <!-- Text to display in the list when there are no news [CHAR LIMIT=NONE] -->
     <string name="no_news">No news found.</string>
 
@@ -45,13 +46,14 @@
     <string name="fashion">fashion</string>
     <string name="business">business</string>
     <string name="culture">culture</string>
+    <string name="search">search</string>
 
     <string name="hint_num_of_items">Between 1 and 50</string>
 
     <!--Strings to be used for the Preference Labels -->
     <string name="settings_number_of_items_label">Number of Items</string>
     <string name="settings_number_of_items_key" translatable="false">number_of_items</string>
-    <string name="settings_number_of_items_default" translatable="false">10</string>
+    <string name="settings_number_of_items_default" translatable="false">20</string>
 
     <!-- Strings for Order-By preference [CHAR LIMIT=30] -->
     <string name="settings_order_by_label">Order By</string>
@@ -137,4 +139,6 @@
     <!-- Label for text size large preference [CHAR LIMIT=20] -->
     <string name="settings_text_size_large_label">Large</string>
     <string name="settings_text_size_large_value" translatable="false">large</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
