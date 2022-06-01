@@ -8,6 +8,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -33,27 +34,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        // Find the view pager that will allow the user to swipe between fragments
         viewPager = findViewById(R.id.viewpager);
 
-        // Give the TabLayout the ViewPager
         TabLayout tabLayout = findViewById(R.id.sliding_tabs);
         tabLayout.setupWithViewPager(viewPager);
-        // Set gravity for tab bar
+
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
 
-        // Set the default fragment when starting the app
         onNavigationItemSelected(navigationView.getMenu().getItem(0).setChecked(true));
 
-        // Set category fragment pager adapter
         CategoryFragmentPagerAdapter pagerAdapter =
                 new CategoryFragmentPagerAdapter(this, getSupportFragmentManager());
-        // Set the pager adapter onto the view pager
+
         viewPager.setAdapter(pagerAdapter);
+
+        navigationView.setItemIconTintList(null);
     }
 
     @Override
@@ -100,6 +99,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_search:
                 viewPager.setCurrentItem(Constants.SEARCH);
+                break;
+            case R.id.nav_weather:
+                Intent weatherIntent = new Intent(this, WeatherActivity.class);
+                startActivity(weatherIntent);
                 break;
 
         }

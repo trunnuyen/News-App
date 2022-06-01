@@ -23,7 +23,6 @@ public class BusinessFragment extends BaseArticlesFragment {
         String businessUrl = NewsPreferences.getPreferredUrl(getContext(), getString(R.string.business));
         Log.e(LOG_TAG, businessUrl);
 
-        // Create a new loader for the given URL
         return new NewsLoader(getActivity(),businessUrl);
     }
 }

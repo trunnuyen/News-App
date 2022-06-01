@@ -18,7 +18,7 @@ public class NewsDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_detail);
-
+        //Dùng bundle để truyền String link vào webview
         newsWebView = findViewById(R.id.newsWebView);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();

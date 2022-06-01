@@ -22,7 +22,6 @@ public class SportFragment extends BaseArticlesFragment{
         String sportUrl = NewsPreferences.getPreferredUrl(getContext(), getString(R.string.sport));
         Log.e(LOG_TAG, sportUrl);
 
-        // Create a new loader for the given URL
         return new NewsLoader(getActivity(),sportUrl);
     }
 }

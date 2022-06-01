@@ -21,23 +21,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QueryUtils {
-    /** Tag for the log messages */
+
     private static final String LOG_TAG = QueryUtils.class.getSimpleName();
 
-    /**
-     * Create a private constructor because no one should ever create a {@link QueryUtils} object.
-     */
     private QueryUtils() {
     }
 
-    /**
-     * Query the Guardian data set and return a list of {@link News} objects.
-     */
+    //Truy vấn dũ liệu từ Gủardian và trả về danh sách các news objects
     public static List<News> fetchNewsData(String requestUrl) {
-        // Create URL object
+
         URL url = createUrl(requestUrl);
 
-        // Perform HTTP request to the URL and receive a JSON response back
         String jsonResponse = null;
         try {
             jsonResponse = makeHttpRequest(url);
@@ -52,9 +46,7 @@ public class QueryUtils {
         return newsList;
     }
 
-    /**
-     * Returns new URL object from the given string URL.
-     */
+    //Tạo đối tượng kiểu URL mới từ chuỗi String url
     private static URL createUrl(String stringUrl) {
         URL url = null;
         try {
@@ -65,13 +57,10 @@ public class QueryUtils {
         return url;
     }
 
-    /**
-     * Make an HTTP request to the given URL and return a String as the response.
-     */
+    //Tạo HTTP request từ URL và trả về chuỗi JSON
     private static String makeHttpRequest(URL url) throws IOException {
         String jsonResponse = "";
 
-        // If the URL is null, then return early.
         if (url == null) {
             return jsonResponse;
         }
@@ -85,8 +74,7 @@ public class QueryUtils {
             urlConnection.setRequestMethod(Constants.REQUEST_METHOD_GET);
             urlConnection.connect();
 
-            // If the request was successful (response code 200),
-            // then read the input stream and parse the response.
+            // Request thành công SUCCESS_RESPONSE_CODE = 200
             if (urlConnection.getResponseCode() == Constants.SUCCESS_RESPONSE_CODE) {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
@@ -100,19 +88,13 @@ public class QueryUtils {
                 urlConnection.disconnect();
             }
             if (inputStream != null) {
-                // Closing the input stream could throw an IOException, which is why
-                // the makeHttpRequest(URL url) method signature specifies that an IOException
-                // could be thrown.
                 inputStream.close();
             }
         }
         return jsonResponse;
     }
 
-    /**
-     * Convert the {@link InputStream} into a String which contains the
-     * whole JSON response from the server.
-     */
+    //Chuyển đổi InputStream thành String
     private static String readFromStream(InputStream inputStream) throws IOException {
         StringBuilder output = new StringBuilder();
         if (inputStream != null) {
@@ -127,89 +109,73 @@ public class QueryUtils {
         return output.toString();
     }
 
-    /**
-     * Return a list of {@link News} objects that has been built up from
-     * parsing the given JSON response.
-     */
+    //Trả về News list từ chuỗi JSON
     private static List<News> extractFeatureFromJSON(String newsJSON) {
-        // If the JSON string is empty or null, then return early.
+
         if (TextUtils.isEmpty(newsJSON)) {
             return null;
         }
-        // Create an empty ArrayList that we can start adding news to
+
         List<News> newsList = new ArrayList<>();
 
-        // Try to parse the JSON response string. If there's a problem with the way the JSON
-        // is formatted, a JSONException exception object will be thrown.
         try {
-            // Create a JSONObject from the JSON response string
+            // Tạo JSONObject từ chuỗi json
             JSONObject baseJsonResponse = new JSONObject(newsJSON);
 
-            // Extract the JSONObject associated with the key called "response"
             JSONObject responseJsonObject = baseJsonResponse.getJSONObject(Constants.JSON_KEY_RESPONSE);
 
-            // Extract the JSONArray associated with the key called "results"
             JSONArray resultsArray = responseJsonObject.getJSONArray(Constants.JSON_KEY_RESULTS);
 
-            // For each element in the resultsArray, create a {@link News} object
             for (int i = 0; i < resultsArray.length(); i++) {
 
-                // Get a single news at position i within the list of news
+                // lấy curent news ở vị trí i
                 JSONObject currentNews = resultsArray.getJSONObject(i);
-                // For a given news, extract the value for the key called "webTitle"
+                // lấy web title
                 String webTitle = currentNews.getString(Constants.JSON_KEY_WEB_TITLE);
-                // For a given news, extract the value for the key called "sectionName"
+                // lấy tên danh mục (section name)
                 String sectionName = currentNews.getString(Constants.JSON_KEY_SECTION_NAME);
-                // For a given news, extract the value for the key called "webPublicationDate"
+                // lấy ngày đăng
                 String webPublicationDate = currentNews.getString(Constants.JSON_KEY_WEB_PUBLICATION_DATE);
-                // For a given news, extract the value for the key called "webUrl"
+                // lấy web url
                 String webUrl = currentNews.getString(Constants.JSON_KEY_WEB_URL);
 
-                // For a given news, if it contains the key called "tags", extract JSONArray
-                // associated with the key "tags"
+                // nếu news trả về có tags
                 String author = null;
                 if (currentNews.has(Constants.JSON_KEY_TAGS)) {
-                    // Extract the JSONArray associated with the key called "tags"
+                    // lất tags
                     JSONArray tagsArray = currentNews.getJSONArray(Constants.JSON_KEY_TAGS);
                     if (tagsArray.length() != 0) {
-                        // Extract the first JSONObject in the tagsArray
+                        // lấy JSONObject đầu trong tags
                         JSONObject firstTagsItem = tagsArray.getJSONObject(0);
-                        // Extract the value for the key called "webTitle"
+                        // lấy tên tác giả từ web title nằm trong tags
                         author = firstTagsItem.getString(Constants.JSON_KEY_WEB_TITLE);
                     }
                 }
 
-                // For a given news, if it contains the key called "fields", extract JSONObject
-                // associated with the key "fields"
+                // nếu news trả về có fields
                 String thumbnail = null;
                 String trailText = null;
                 if (currentNews.has(Constants.JSON_KEY_FIELDS)) {
-                    // Extract the JSONObject associated with the key called "fields"
+
                     JSONObject fieldsObject = currentNews.getJSONObject(Constants.JSON_KEY_FIELDS);
-                    // If there is the key called "thumbnail", extract the value for the key called "thumbnail"
+                    // Lấy thumbnail
                     if (fieldsObject.has(Constants.JSON_KEY_THUMBNAIL)) {
                         thumbnail = fieldsObject.getString(Constants.JSON_KEY_THUMBNAIL);
                     }
-                    // If there is the key called "trailText", extract the value for the key called "trailText"
+                    // Lấy phần text mô tả ngắn
                     if (fieldsObject.has(Constants.JSON_KEY_TRAIL_TEXT)) {
                         trailText = fieldsObject.getString(Constants.JSON_KEY_TRAIL_TEXT);
                     }
                 }
 
-                // Create a new {@link News} object with the title and url from the JSON response.
                 News news = new News(webTitle, sectionName, author, webPublicationDate, webUrl, thumbnail, trailText);
 
-                // Add the new {@link News} to list of newsList.
                 newsList.add(news);
             }
         } catch (JSONException e) {
-            // If an error is thrown when executing any of the above statements in the "try" block,
-            // catch the exception here, so the app doesn't crash. Print a log message
-            // with the message from the exception.
             Log.e(LOG_TAG, "Problem parsing the news JSON results", e);
         }
 
-        // Return the list of news
         return newsList;
     }
 }

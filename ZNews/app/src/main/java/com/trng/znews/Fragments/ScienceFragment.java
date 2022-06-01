@@ -22,7 +22,6 @@ public class ScienceFragment extends BaseArticlesFragment{
         String scienceUrl = NewsPreferences.getPreferredUrl(getContext(), getString(R.string.science));
         Log.e(LOG_TAG, scienceUrl);
 
-        // Create a new loader for the given URL
         return new NewsLoader(getActivity(),scienceUrl);
     }
 }

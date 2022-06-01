@@ -53,12 +53,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull NewsAdapter.ViewHolder holder, int position) {
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(mContext);
 
-        // Find the current news that was clicked on
         final News currentNews = mNewsList.get(position);
 
         holder.titleTextView.setText(currentNews.getTitle());
         holder.sectionTextView.setText(currentNews.getSection());
-        // If the author does not exist, hide the authorTextView
+        // Nếu ko có tên tác giả thì ẩn authortextview
         if (currentNews.getAuthor() == null) {
             holder.authorTextView.setVisibility(View.GONE);
         } else {
@@ -66,16 +65,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>{
             holder.authorTextView.setText(currentNews.getAuthor());
         }
 
-        // Get time difference between the current date and web publication date and
-        // set the time difference on the textView
         holder.dateTextView.setText(getTimeDifference(formatDate(currentNews.getDate())));
 
-        // Get string of the trailTextHTML and convert Html text to plain text
-        // and set the plain text on the textView
         String trailTextHTML = currentNews.getTrailTextHtml();
         holder.trailTextView.setText(Html.fromHtml(Html.fromHtml(trailTextHTML).toString()));
 
-        // Set an OnClickListener to open a new activity with more information about the selected article
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,12 +89,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>{
             holder.thumbnailImageView.setVisibility(View.GONE);
         } else {
             holder.thumbnailImageView.setVisibility(View.VISIBLE);
-            // Load thumbnail with glide
+
             Glide.with(mContext.getApplicationContext())
                     .load(currentNews.getThumbnail())
                     .into(holder.thumbnailImageView);
         }
-        // Set an OnClickListener to share the data with friends via email or  social networking
+
         holder.shareImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,7 +103,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>{
         });
     }
 
-    //Get News url and Share news
+    //lấy url để share news
     private void shareData(News news) {
         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
@@ -118,6 +112,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>{
         mContext.startActivity(Intent.createChooser(sharingIntent,
                 mContext.getString(R.string.share_article)));
     }
+
 
     private String formatDate(String dateStringUTC) {
         // Parse the dateString into a Date object
@@ -129,11 +124,11 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>{
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        // Initialize a SimpleDateFormat instance and configure it to provide a more readable
-        // representation according to the given format, but still in UTC
+
         SimpleDateFormat df = new SimpleDateFormat("MMM d, yyyy  h:mm a", Locale.ENGLISH);
         String formattedDateUTC = df.format(dateObject);
-        // Convert UTC into Local time
+
+        // Chuyển từ UTC sang giờ địa phương
         df.setTimeZone(TimeZone.getTimeZone("UTC"));
         Date date = null;
         try {
@@ -178,10 +173,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>{
         notifyDataSetChanged();
     }
 
-    /**
-     * Add  a list of {@link News}
-     * @param newsList is the list of news, which is the data source of the adapter
-     */
     public void addAll(List<News> newsList) {
         mNewsList.clear();
         mNewsList.addAll(newsList);

@@ -22,7 +22,6 @@ public class SocietyFragment extends BaseArticlesFragment{
         String societyUrl = NewsPreferences.getPreferredUrl(getContext(), getString(R.string.society));
         Log.e(LOG_TAG, societyUrl);
 
-        // Create a new loader for the given URL
         return new NewsLoader(getActivity(),societyUrl);
     }
 }

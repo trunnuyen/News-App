@@ -22,7 +22,6 @@ public class CultureFragment extends BaseArticlesFragment {
         String cultureUrl = NewsPreferences.getPreferredUrl(getContext(), getString(R.string.culture));
         Log.e(LOG_TAG, cultureUrl);
 
-        // Create a new loader for the given URL
         return new NewsLoader(getActivity(),cultureUrl);
     }
 }

@@ -22,7 +22,6 @@ public class EnvironmentFragment extends BaseArticlesFragment{
         String environmentUrl = NewsPreferences.getPreferredUrl(getContext(), getString(R.string.environment));
         Log.e(LOG_TAG, environmentUrl);
 
-        // Create a new loader for the given URL
         return new NewsLoader(getActivity(),environmentUrl);
     }
 }
