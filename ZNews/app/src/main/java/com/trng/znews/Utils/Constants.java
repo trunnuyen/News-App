@@ -4,47 +4,17 @@ public class Constants {
     private Constants() {
     }
 
-    static final String JSON_KEY_RESPONSE = "response";
-    static final String JSON_KEY_RESULTS = "results";
-    static final String JSON_KEY_WEB_TITLE = "webTitle";
-    static final String JSON_KEY_SECTION_NAME = "sectionName";
-    static final String JSON_KEY_WEB_PUBLICATION_DATE = "webPublicationDate";
-    static final String JSON_KEY_WEB_URL = "webUrl";
-    static final String JSON_KEY_TAGS = "tags";
-    static final String JSON_KEY_FIELDS = "fields";
-    static final String JSON_KEY_THUMBNAIL = "thumbnail";
-    static final String JSON_KEY_TRAIL_TEXT = "trailText";
-
-    static final int READ_TIMEOUT = 10000; /* milliseconds */
-
-    static final int CONNECT_TIMEOUT = 15000; /* milliseconds */
-
-    static final int SUCCESS_RESPONSE_CODE = 200;
-
-    static final String REQUEST_METHOD_GET = "GET";
-
-    //News data from guardians API
-    public static final String NEWS_REQUEST_URL = "https://content.guardianapis.com/search";
-
-    public static final String QUERY_PARAM = "q";
-    public static final String ORDER_BY_PARAM = "order-by";
-    public static final String PAGE_SIZE_PARAM = "page-size";
-    public static final String ORDER_DATE_PARAM = "order-date";
-    public static final String FROM_DATE_PARAM = "from-date";
-    public static final String SHOW_FIELDS_PARAM = "show-fields";
-    public static final String FORMAT_PARAM = "format";
-    public static final String SHOW_TAGS_PARAM = "show-tags";
-    public static final String API_KEY_PARAM = "api-key";
-    public static final String SECTION_PARAM = "section";
-    public static final String SEARCH_PARAM = "search";
-
-    public static final String SHOW_FIELDS = "thumbnail,trailText";
-
-    public static final String FORMAT = "json";
-
-    public static final String SHOW_TAGS = "contributor";
-
-    public static final String API_KEY = "test";
+    public static final String EX_NEWS_REQUEST_URL = "https://vnexpress.net/rss/tin-moi-nhat.rss";
+    public static final String WORLD_NEWS_REQUEST_URL = "https://vnexpress.net/rss/the-gioi.rss";
+    public static final String BUSINESS_NEWS_REQUEST_URL = "https://vnexpress.net/rss/kinh-doanh.rss";
+    public static final String SPORT_NEWS_REQUEST_URL = "https://vnexpress.net/rss/the-thao.rss";
+    public static final String LAWS_NEWS_REQUEST_URL = "https://vnexpress.net/rss/phap-luat.rss";
+    public static final String SCIENCE_NEWS_REQUEST_URL = "https://vnexpress.net/rss/khoa-hoc.rss";
+    public static final String SOCIETY_NEWS_REQUEST_URL = "https://vnexpress.net/rss/cong-dong.rss";
+    public static final String TRAVEL_NEWS_REQUEST_URL = "https://vnexpress.net/rss/du-lich.rss";
+    public static final String EDUCATION_NEWS_REQUEST_URL = "https://vnexpress.net/rss/giao-duc.rss";
+    public static final String HEATH_NEWS_REQUEST_URL = "https://vnexpress.net/rss/suc-khoe.rss";
+    public static final String VNEXPRESS = "VnExpress";
 
     public static  final String THUNDERSTORM_WEATHER = "thunderstorm2";
     public static  final String LIGHT_RAIN_WEATHER = "lightrain";
@@ -68,6 +38,20 @@ public class Constants {
     public static final int FASHION = 6;
     public static final int BUSINESS = 7;
     public static final int CULTURE = 8;
-    public static final int SEARCH = 9;
+    public static final int SAVED = 9;
     public static final int WEATHER = 10;
+
+    public static final String sNEWEST = "NEWEST";
+    public static final String sWORLD = "WORLD";
+    public static final String sSCIENCE = "SCIENCE";
+    public static final String sSPORT = "SPORT";
+    public static final String sENVIRONMENT = "ENVIRONMENT";
+    public static final String sSOCIETY = "SOCIETY";
+    public static final String sFASHION = "FASHION";
+    public static final String sBUSINESS = "BUSINESS";
+    public static final String sCULTURE = "CULTURE";
+    public static final String sSAVED = "SAVED";
+    public static final String sWEATHER = "WEATHER";
+
+    public static final String WEB_CLIENT_ID = "195269309412-me4vd5bt680tgk7foaovi7i2uh319qtv.apps";
 }

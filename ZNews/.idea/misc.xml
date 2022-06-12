@@ -8,6 +8,7 @@
         <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/drawable/edittextdesign.xml" value="0.1655" />
         <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/drawable/ic_bookmark_empty.xml" value="0.1655" />
         <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/drawable/ic_bookmark_full.xml" value="0.1655" />
+        <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/drawable/ic_cloud.xml" value="0.1655" />
         <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/drawable/ic_double_up.xml" value="0.1655" />
         <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1655" />
         <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/drawable/ic_menu_business.xml" value="0.1655" />
@@ -22,11 +23,19 @@
         <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/drawable/ic_menu_user.xml" value="0.1655" />
         <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/drawable/ic_menu_weather.xml" value="0.1655" />
         <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/drawable/ic_menu_world.xml" value="0.1655" />
+        <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/drawable/ic_network_check.xml" value="0.1655" />
+        <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/drawable/ic_saved.xml" value="0.1655" />
         <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/drawable/ic_up.xml" value="0.1655" />
+        <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/drawable/round_button.xml" value="0.1655" />
         <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/drawable/side_nav_bar.xml" value="0.1655" />
+        <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/layout/activity_account.xml" value="0.25416666666666665" />
         <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/layout/activity_find_city.xml" value="0.25416666666666665" />
+        <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/layout/activity_google_login.xml" value="0.25416666666666665" />
         <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/layout/activity_news_detail.xml" value="0.25416666666666665" />
+        <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/layout/activity_sign_in.xml" value="0.25416666666666665" />
+        <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/layout/activity_sign_up.xml" value="0.24010416666666667" />
+        <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/layout/activity_splash.xml" value="0.25416666666666665" />
         <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/layout/activity_weather.xml" value="0.25416666666666665" />
         <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/layout/app_bar_main.xml" value="0.25416666666666665" />
         <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/layout/content_main.xml" value="0.25416666666666665" />
@@ -37,6 +46,7 @@
         <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/layout/nav_header_main.xml" value="0.25416666666666665" />
         <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/layout/news_card_item.xml" value="0.25416666666666665" />
         <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/menu/activity_main_drawer.xml" value="0.25025641025641027" />
+        <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/News/News-App/ZNews/app/src/main/res/menu/main.xml" value="0.25416666666666665" />
         <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/ZNews/app/src/main/res/drawable/ic_menu_business.xml" value="0.15" />
         <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/ZNews/app/src/main/res/drawable/ic_menu_environment.xml" value="0.15" />
         <entry key="..\:/UIT/.Nam3_Ky2/NMMobile/ZNews/app/src/main/res/drawable/ic_menu_world.xml" value="0.15" />

@@ -11,8 +11,8 @@ import com.trng.znews.Fragments.CultureFragment;
 import com.trng.znews.Fragments.EnvironmentFragment;
 import com.trng.znews.Fragments.FashionFragment;
 import com.trng.znews.Fragments.HomeFragment;
+import com.trng.znews.Fragments.SavedFragment;
 import com.trng.znews.Fragments.ScienceFragment;
-import com.trng.znews.Fragments.SearchFragment;
 import com.trng.znews.Fragments.SocietyFragment;
 import com.trng.znews.Fragments.SportFragment;
 import com.trng.znews.Fragments.WorldFragment;
@@ -49,8 +49,8 @@ public class CategoryFragmentPagerAdapter extends FragmentPagerAdapter {
                 return new BusinessFragment();
             case Constants.CULTURE:
                 return new CultureFragment();
-            case Constants.SEARCH:
-                return new SearchFragment();
+            case Constants.SAVED:
+                return new SavedFragment();
             default:
                 return null;
         }
@@ -89,8 +89,8 @@ public class CategoryFragmentPagerAdapter extends FragmentPagerAdapter {
             case Constants.BUSINESS:
                 titleResId = R.string.ic_title_business;
                 break;
-            case Constants.SEARCH:
-                titleResId = R.string.ic_title_search;
+            case Constants.SAVED:
+                titleResId = R.string.ic_title_saved;
                 break;
             default:
                 titleResId = R.string.ic_title_culture;

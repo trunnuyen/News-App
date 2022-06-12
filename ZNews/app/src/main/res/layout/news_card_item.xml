@@ -42,18 +42,8 @@
                     style="@style/SectionTextViewStyle"
                     android:layout_below="@+id/thumbnail_image_card"
                     android:layout_alignParentStart="true"
-                    tools:text="section"
-                    android:layout_toStartOf="@+id/save_news_button"/>
-
-                <TextView
-                    android:id="@+id/trail_text_card"
-                    style="@style/TrailTextViewStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/section_card"
-                    android:layout_alignParentStart="true"
-                    tools:text="trailText"
-                    android:layout_toStartOf="@+id/save_news_button"/>
+                    android:layout_toStartOf="@+id/save_news_button"
+                    tools:text="section" />
 
                 <ImageView
                     android:id="@+id/thumbnail_image_card"
@@ -72,8 +62,7 @@
                     android:layout_below="@+id/thumbnail_image_card"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="@dimen/sp16"
-                    android:layout_marginTop="@dimen/sp16"
-                    android:src="@drawable/ic_bookmark_empty" />
+                    android:src="@drawable/ic_cloud" />
             </RelativeLayout>
 
             <TextView

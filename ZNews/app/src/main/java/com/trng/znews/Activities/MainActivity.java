@@ -9,11 +9,16 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.trng.znews.Adapters.CategoryFragmentPagerAdapter;
 import com.trng.znews.R;
 import com.trng.znews.Utils.Constants;
@@ -25,6 +30,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser == null) {
+            Intent intent = new Intent(this, SignInActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -97,13 +112,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_culture:
                 viewPager.setCurrentItem(Constants.CULTURE);
                 break;
-            case R.id.nav_search:
-                viewPager.setCurrentItem(Constants.SEARCH);
+            case R.id.nav_saved:
+                viewPager.setCurrentItem(Constants.SAVED);
                 break;
             case R.id.nav_weather:
                 Intent weatherIntent = new Intent(this, WeatherActivity.class);
                 startActivity(weatherIntent);
                 break;
+            case R.id.nav_user:
+                Intent userIntent = new Intent(this, AccountActivity.class);
+                startActivity(userIntent);
 
         }
             DrawerLayout drawer = findViewById(R.id.drawer_layout);

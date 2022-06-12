@@ -1,7 +1,7 @@
 package com.trng.znews.Models;
 
-
 public class News {
+    private int id;
 
     private String mTitle;
 
@@ -15,16 +15,31 @@ public class News {
 
     private String mThumbnail;
 
-    private String mTrailTextHtml;
-
-    public News(String title, String section, String author, String date, String url, String thumbnail, String trailText) {
+    public News(int id, String title, String section, String author, String date, String url, String thumbnail) {
+        id =  id;
         mTitle = title;
         mSection = section;
         mAuthor = author;
         mDate = date;
         mUrl = url;
         mThumbnail = thumbnail;
-        mTrailTextHtml = trailText;
+    }
+
+    public News( String title, String author, String section, String date, String url, String thumbnail) {
+        mTitle = title;
+        mSection = section;
+        mAuthor = author;
+        mDate = date;
+        mUrl = url;
+        mThumbnail = thumbnail;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -49,9 +64,5 @@ public class News {
 
     public String getThumbnail() {
         return mThumbnail;
-    }
-
-    public String getTrailTextHtml() {
-        return mTrailTextHtml;
     }
 }

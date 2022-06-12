@@ -1,16 +1,15 @@
 package com.trng.znews.Fragments;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.loader.app.LoaderManager;
-import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -24,33 +23,42 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.trng.znews.Activities.EmptyRecyclerView;
+import com.trng.znews.Activities.SignInActivity;
 import com.trng.znews.Adapters.NewsAdapter;
 import com.trng.znews.Models.News;
-import com.trng.znews.Models.NewsLoader;
-import com.trng.znews.Models.NewsPreferences;
 import com.trng.znews.R;
 import com.trng.znews.Utils.Constants;
+
+import org.jsoup.Jsoup;
+import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaseArticlesFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<News>> {
-
-    private static final String LOG_TAG = BaseArticlesFragment.class.getName();
-
-    private static final int NEWS_LOADER_ID = 1;
+public abstract class BaseArticlesFragment extends Fragment {
 
     private NewsAdapter mAdapter;
 
     private TextView mEmptyStateTextView;
 
-    private View mLoadingIndicator;
-
     private SwipeRefreshLayout mSwipeRefreshLayout;
+
+    List<News> arrArticle= new ArrayList<>();
+    List<News> arrArticle2= new ArrayList<>();
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if (currentUser == null) {
+            Intent intent = new Intent(getActivity(), SignInActivity.class);
+            startActivity(intent);
+        }
+
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
         EmptyRecyclerView mRecyclerView = rootView.findViewById(R.id.recycler_view);
@@ -66,8 +74,6 @@ public class BaseArticlesFragment extends Fragment implements LoaderManager.Load
                 getResources().getColor(R.color.swipe_color_4));
 
         mSwipeRefreshLayout.setOnRefreshListener(() -> {
-            Log.i(LOG_TAG, "onRefresh called from SwipeRefreshLayout");
-
             initiateRefresh();
             Toast.makeText(getActivity(), getString(R.string.updated_just_now),
                     Toast.LENGTH_SHORT).show();
@@ -115,77 +121,101 @@ public class BaseArticlesFragment extends Fragment implements LoaderManager.Load
             }
         });
 
-
-        mLoadingIndicator = rootView.findViewById(R.id.loading_indicator);
-
         mEmptyStateTextView = rootView.findViewById(R.id.empty_view);
         mRecyclerView.setEmptyView(mEmptyStateTextView);
 
-        mAdapter = new NewsAdapter(getActivity(), new ArrayList<News>());
+        mAdapter = new NewsAdapter(getActivity(), arrArticle);
 
         mRecyclerView.setAdapter(mAdapter);
-
-        initializeLoader(isConnected());
-
+        initializeLoader(isNetworkAvailable());
+        //new ReadDataFromURL().execute(Constants.EX_NEWS_REQUEST_URL);
         return rootView;
     }
 
+    class ReadDataFromURL extends AsyncTask<String, Void, String> {
+        ProgressDialog dialog;
 
-    @NonNull
-    @Override
-    public Loader<List<News>> onCreateLoader(int i, Bundle bundle) {
+        @Override
+        protected void onPreExecute() {
+            arrArticle.clear();
+            mAdapter.notifyDataSetChanged();
+            arrArticle2.clear();
 
-        Uri.Builder uriBuilder = NewsPreferences.getPreferredUri(getContext(),"");
-
-        Log.e(LOG_TAG,uriBuilder.toString());
-
-        return new NewsLoader(getActivity(), uriBuilder.toString());
-    }
-
-    @Override
-    public void onLoadFinished(@NonNull Loader<List<News>> loader, List<News> newsData) {
-
-        mLoadingIndicator.setVisibility(View.GONE);
-
-        mEmptyStateTextView.setText(R.string.no_news);
-
-        mAdapter.clearAll();
-
-        if (newsData != null && !newsData.isEmpty()) {
-            mAdapter.addAll(newsData);
+            dialog = new ProgressDialog(getContext());
+            dialog.setMessage("      Loading...");
+            dialog.show();
         }
 
-        mSwipeRefreshLayout.setRefreshing(false);
+        @Override
+        protected String doInBackground(String... strings) {
+            //  ArrayList<NewsModel> arr=new ArrayList<NewsModel>();
+            String url = strings[0];
+            //   arrArticle.clear();
+            try {
+                org.jsoup.nodes.Document doc = Jsoup.connect(url).get();
+                Elements elements = doc.select("item");
+                for (org.jsoup.nodes.Element item : elements) {
+                    String title = item.select("title").text();
+                    String link = item.select("link").text();
+                    String date = item.select("pubDate").text();
+                    String des = item.select("description").text();
+                    //     Log.d("des",des);
+                    org.jsoup.nodes.Document docImage = Jsoup.parse(des);
+                    String image = docImage.select("img").get(0).attr("src");
+                    //  Log.d("img",image);
+                    Log.d("link", link);
+                    arrArticle2.add(new News(title,  Constants.VNEXPRESS, getSection(), date, link, image));
+                    Log.d("arr", "" + arrArticle.size());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.d("error ", "" + e.getMessage());
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            arrArticle.addAll(arrArticle2);
+            mAdapter.notifyDataSetChanged();
+
+            dialog.dismiss();
+            super.onPostExecute(s);
+
+            Log.d("arr", "...." + arrArticle.size());
+        }
     }
 
-    @Override
-    public void onLoaderReset(@NonNull Loader<List<News>> loader) {
-        mAdapter.clearAll();
+    //Kiem tra mang
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
+            return true;
+        }
+        return false;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        restartLoader(isConnected());
-    }
-
-    boolean isConnected() {
-        ConnectivityManager connectivityManager = (ConnectivityManager)
-                getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-
-        return (networkInfo != null && networkInfo.isConnected());
+        restartLoader(isNetworkAvailable());
     }
 
     void initializeLoader(boolean isConnected) {
         if (isConnected) {
+            new ReadDataFromURL().execute(getUrl());
 
-            LoaderManager loaderManager = getLoaderManager();
+        mEmptyStateTextView.setText(R.string.no_news);
 
-            loaderManager.initLoader(NEWS_LOADER_ID, null, this);
+        mAdapter.clearAll();
+
+        if (arrArticle != null && !arrArticle.isEmpty()) {
+            mAdapter.addAll(arrArticle);
+        }
+        mSwipeRefreshLayout.setRefreshing(false);
         } else {
-            mLoadingIndicator.setVisibility(View.GONE);
 
             mEmptyStateTextView.setText(R.string.no_internet_connection);
             mEmptyStateTextView.setCompoundDrawablesWithIntrinsicBounds(Constants.DEFAULT_NUMBER,
@@ -193,14 +223,13 @@ public class BaseArticlesFragment extends Fragment implements LoaderManager.Load
         }
     }
 
-    //restart loader khi thiết bị kết nối với mạng
     private void restartLoader(boolean isConnected) {
         if (isConnected) {
-            LoaderManager loaderManager = getLoaderManager();
-            loaderManager.restartLoader(NEWS_LOADER_ID, null, this);
-        } else {
-            mLoadingIndicator.setVisibility(View.GONE);
+            mAdapter.clearAll();
+            new ReadDataFromURL().execute(getUrl());
+            mSwipeRefreshLayout.setRefreshing(false);
 
+        } else {
             mEmptyStateTextView.setText(R.string.no_internet_connection);
             mEmptyStateTextView.setCompoundDrawablesWithIntrinsicBounds(Constants.DEFAULT_NUMBER,
                     R.drawable.ic_network_check,Constants.DEFAULT_NUMBER,Constants.DEFAULT_NUMBER);
@@ -209,7 +238,15 @@ public class BaseArticlesFragment extends Fragment implements LoaderManager.Load
         }
     }
 
+    public String getUrl(){
+        return Constants.EX_NEWS_REQUEST_URL;
+    }
+
+    public String getSection() {
+        return Constants.sNEWEST;
+    }
+
     void initiateRefresh() {
-        restartLoader(isConnected());
+        restartLoader(isNetworkAvailable());
     }
 }

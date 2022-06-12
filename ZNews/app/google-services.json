@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "371736361902",
+    "firebase_url": "https://znews-cdf8c-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "znews-cdf8c",
+    "storage_bucket": "znews-cdf8c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:371736361902:android:d90285245a7672ba5fa63f",
+        "android_client_info": {
+          "package_name": "com.trng.znews"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "371736361902-9pe6g5jd16hnrskvp7j8in1k1acq74sq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaAXhmanGYv6NOzzGV337czFswcvie7xo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "371736361902-9pe6g5jd16hnrskvp7j8in1k1acq74sq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

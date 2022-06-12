@@ -5,7 +5,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo6"
@@ -13,6 +14,18 @@
         android:roundIcon="@drawable/logo6"
         android:supportsRtl="true"
         android:theme="@style/Theme.ZNews">
+        <activity
+            android:name=".Activities.SignInActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.AccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.MainActivity"
+            android:exported="false" />
         <activity
             android:name=".Activities.WeatherActivity"
             android:exported="false" />
@@ -23,7 +36,7 @@
             android:name=".Activities.NewsDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.MainActivity"
+            android:name=".Activities.SplashActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.ZNews.NoActionBar">
